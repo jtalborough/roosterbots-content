@@ -2,9 +2,8 @@ backend:
   name: github
   repo: jtalborough/roosterbots-content
   branch: main
-  # Using PKCE auth - works through Cloudflare without server-side OAuth
-  auth_type: pkce
-  app_id: Ov23liZQUUsnBcCdA4S2
+  base_url: https://roosterbots.designbuildautomate.io
+  auth_endpoint: /api/auth
 
 # Media files will be stored in static/images
 media_folder: static/images
