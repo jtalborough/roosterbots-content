@@ -2,10 +2,16 @@
 (function() {
   const hash = window.location.hash;
   
+  // Handle both #token= and #/token= formats
   if (hash && hash.includes('token=')) {
-    // Extract token from hash
-    const params = new URLSearchParams(hash.substring(1));
-    const token = params.get('token');
+    // Extract token - handle various formats
+    let token = null;
+    
+    // Try to extract from hash (handles #token=xxx or #/token=xxx)
+    const match = hash.match(/token=([^&]+)/);
+    if (match) {
+      token = decodeURIComponent(match[1]);
+    }
     
     if (token) {
       // Store in format Decap CMS expects
