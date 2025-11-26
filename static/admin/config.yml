@@ -1,0 +1,105 @@
+backend:
+  name: github
+  repo: jtalborough/roosterbots-content
+  branch: main
+  base_url: https://roosterbots.designbuildautomate.io
+  auth_endpoint: /api/auth
+
+# Media files will be stored in static/images
+media_folder: static/images
+public_folder: /images
+
+# Site URL for previews
+site_url: https://roosterbots.designbuildautomate.io
+display_url: https://roosterbots.designbuildautomate.io
+
+collections:
+  # Blog posts
+  - name: blog
+    label: Blog Posts
+    folder: content/blog
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Publish Date, name: date, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: Draft, name: draft, widget: boolean, default: false }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - label: Cover Image
+        name: cover
+        widget: object
+        required: false
+        fields:
+          - { label: Image, name: image, widget: image, required: false }
+          - { label: Alt Text, name: alt, widget: string, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  # Pages (About, Donate, etc.)
+  - name: pages
+    label: Pages
+    files:
+      - label: About
+        name: about
+        file: content/about.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD" }
+          - { label: Draft, name: draft, widget: boolean, default: false }
+          - { label: Body, name: body, widget: markdown }
+
+      - label: Donate
+        name: donate
+        file: content/donate.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD" }
+          - { label: Draft, name: draft, widget: boolean, default: false }
+          - { label: Layout, name: layout, widget: hidden, default: donate }
+          - { label: Body, name: body, widget: markdown }
+
+      - label: Home Page
+        name: home
+        file: content/_index.md
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Body, name: body, widget: markdown, required: false }
+
+  # Store products (JSON data file)
+  - name: products
+    label: Store Products
+    file: content/store/products.json
+    fields:
+      - label: Products
+        name: products
+        widget: list
+        fields:
+          - { label: Product ID, name: id, widget: string }
+          - { label: Name, name: name, widget: string }
+          - { label: Description, name: description, widget: text }
+          - { label: Price, name: price, widget: number, value_type: float }
+          - { label: Image, name: image, widget: image }
+          - { label: Sizes, name: sizes, widget: list, required: false }
+
+  # Site Settings
+  - name: settings
+    label: Site Settings
+    files:
+      - label: Site Configuration
+        name: config
+        file: hugo.toml
+        format: toml
+        fields:
+          - { label: Base URL, name: baseURL, widget: string }
+          - { label: Site Title, name: title, widget: string }
+          - label: Parameters
+            name: params
+            widget: object
+            fields:
+              - { label: Description, name: description, widget: text }
+              - { label: Author, name: author, widget: string }
+          - label: Home Info
+            name: params.homeInfoParams
+            widget: object
+            fields:
+              - { label: Title, name: Title, widget: string }
+              - { label: Content, name: Content, widget: string }
