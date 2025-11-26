@@ -67,18 +67,21 @@ collections:
   # Store products (JSON data file)
   - name: products
     label: Store Products
-    file: content/store/products.json
-    fields:
-      - label: Products
+    files:
+      - label: Products List
         name: products
-        widget: list
+        file: content/store/products.json
         fields:
-          - { label: Product ID, name: id, widget: string }
-          - { label: Name, name: name, widget: string }
-          - { label: Description, name: description, widget: text }
-          - { label: Price, name: price, widget: number, value_type: float }
-          - { label: Image, name: image, widget: image }
-          - { label: Sizes, name: sizes, widget: list, required: false }
+          - label: Products
+            name: products
+            widget: list
+            fields:
+              - { label: Product ID, name: id, widget: string }
+              - { label: Name, name: name, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Price, name: price, widget: number, value_type: float }
+              - { label: Image, name: image, widget: image }
+              - { label: Sizes, name: sizes, widget: list, required: false }
 
   # Site Settings
   - name: settings
