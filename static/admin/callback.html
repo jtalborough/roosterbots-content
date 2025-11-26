@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OAuth Callback</title>
+  <script>
+    (function() {
+      // Get token from URL hash
+      const hash = window.location.hash || window.location.search;
+      const match = hash.match(/token=([^&]+)/);
+      
+      if (match) {
+        const token = decodeURIComponent(match[1]);
+        const data = JSON.stringify({ token: token, provider: 'github' });
+        const message = 'authorization:github:success:' + data;
+        
+        if (window.opener) {
+          window.opener.postMessage(message, '*');
+          window.close();
+        } else {
+          // Fallback - store and redirect
+          localStorage.setItem('netlify-cms-user', data);
+          window.location.href = '/admin/';
+        }
+      } else {
+        document.body.innerHTML = '<p>Error: No token received</p>';
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>Authenticating...</p>
+</body>
+</html>
